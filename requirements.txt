@@ -1,3 +1,5 @@
 ldap3==2.7
 requests==2.23.0
 urllib3==1.25.8
+gunicorn==20.0.4
+falcon==2.0.0
