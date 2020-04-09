@@ -22,7 +22,8 @@ class AuthResource:
 
         try:
             result = self.ad_dao.bind_user(usr, pwd)
-        except BaseException:
+        except BaseException as err:
+            print(f"bind error: {err}")
             result = False
 
         if result:

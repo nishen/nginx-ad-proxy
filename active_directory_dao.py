@@ -1,5 +1,6 @@
 import os
-from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES
+import ssl
+from ldap3 import Tls, Server, Connection, ALL, ALL_ATTRIBUTES
 
 AD_DOMAIN = os.environ["AD_DOMAIN"]
 AD_HOST = os.environ["AD_HOST"]
@@ -10,7 +11,8 @@ class ActiveDirectoryDAO:
         pass
 
     def bind_user(self, username, password):
-        s = Server(host=AD_HOST, port=int(AD_PORT), use_ssl=True, get_info="ALL")
+        tls = Tls(validate=ssl.CERT_NONE, version=ssl.PROTOCOL_TLSv1_2)
+        s = Server(host=AD_HOST, port=int(AD_PORT), use_ssl=True, tls=tls, get_info="ALL")
         c = Connection(
             s,
             user=f"{username}@{AD_DOMAIN}",
