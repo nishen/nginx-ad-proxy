@@ -3,8 +3,7 @@ import falcon
 import logging as log
 import active_directory_dao
 
-log.basicConfig(
-    level=log.INFO, format="[%(asctime)s][%(levelname)s]: %(message)s")
+log.basicConfig(level=log.INFO, format="[%(asctime)s][%(levelname)s]: %(message)s")
 
 
 class AuthResource:
@@ -21,17 +20,24 @@ class AuthResource:
         usr, pwd = auth.decode("utf-8").split(":")
 
         try:
-            result = self.ad_dao.bind_user(usr, pwd)
+            auth_groups = []
+            x_auth_groups = req.get_header('x-auth-groups')
+            if x_auth_groups is not None:
+                auth_groups = x_auth_groups.lower().split(',')
+
+            log.debug("groups: %s", auth_groups)
+            authenticated = self.ad_dao.authenticate(usr, pwd, auth_groups)
         except BaseException as err:
             print(f"bind error: {err}")
-            result = False
+            authenticated = False
 
-        if result:
-            log.info("%s is authenticated", usr)
-            res.status = falcon.HTTP_OK
-        else:
+        if not authenticated:
             log.info("%s is not authenticated", usr)
             res.status = falcon.HTTP_UNAUTHORIZED
+            return
+
+        log.info("%s is authenticated", usr)
+        res.status = falcon.HTTP_OK
 
 
 api = falcon.API()
