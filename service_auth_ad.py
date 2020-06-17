@@ -17,7 +17,7 @@ class AuthResource:
             return
 
         auth = base64.b64decode(req.auth[6:])
-        usr, pwd = auth.decode("utf-8").split(":")
+        usr, pwd = auth.decode("utf-8").split(":", 1)
 
         try:
             auth_groups = []
