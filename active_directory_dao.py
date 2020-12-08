@@ -24,7 +24,7 @@ class ActiveDirectoryDAO:
         try:
             c = Connection(
                 s,
-                user=f"{username}@{AD_DOMAIN}",
+                user=f"{AD_DOMAIN}\\{username}",
                 password=password,
                 auto_bind=True,
                 version=3,
