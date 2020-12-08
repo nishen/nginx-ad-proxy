@@ -1,9 +1,12 @@
+import os
 import base64
 import falcon
 import logging as log
 import active_directory_dao
 
 log.basicConfig(level=log.INFO, format="[%(asctime)s][%(levelname)s]: %(message)s")
+if "DEBUG" in os.environ and os.environ["DEBUG"] == "1":
+    log.getLogger().setLevel(log.DEBUG)
 
 
 class AuthResource:

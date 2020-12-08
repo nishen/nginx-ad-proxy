@@ -6,6 +6,8 @@ from ldap3 import Tls, Server, Connection, ALL, ALL_ATTRIBUTES, SUBTREE
 from ldap3.core.exceptions import LDAPBindError
 
 log.basicConfig(level=log.INFO, format="[%(asctime)s][%(levelname)s]: %(message)s")
+if "DEBUG" in os.environ and os.environ["DEBUG"] == "1":
+    log.getLogger().setLevel(log.DEBUG)
 
 AD_HOST = os.environ["AD_HOST"]
 AD_PORT = os.environ["AD_PORT"]
