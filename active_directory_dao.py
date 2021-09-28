@@ -19,10 +19,10 @@ class ActiveDirectoryDAO:
     def __init__(self):
         pass
 
-    def authenticate(self, username, password, auth_groups):
+    def authenticate(self, username, password, auth_users, auth_groups):
         log.debug("binding user: [%s]", username)
         tls = Tls(validate=ssl.CERT_NONE, version=ssl.PROTOCOL_TLSv1_2)
-        s = Server(host=AD_HOST, port=int(AD_PORT), use_ssl=True, tls=tls, get_info="ALL")
+        s = Server(host=AD_HOST, port=int(AD_PORT), tls=tls, get_info="ALL")
         try:
             c = Connection(
                 s,
@@ -37,6 +37,7 @@ class ActiveDirectoryDAO:
                 read_only=True,
                 lazy=False,
                 raise_exceptions=False)
+            c.start_tls()
 
             c.bind()
         except LDAPBindError:
