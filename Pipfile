@@ -13,7 +13,8 @@ falcon = "==2.0.0"
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3"
 
 [scripts]
 launch = "gunicorn -b 127.0.0.1:9091 service_auth_ad:api"
+launch-win = "waitress-serve --listen 127.0.0.1:9091 service_auth_ad:api"
