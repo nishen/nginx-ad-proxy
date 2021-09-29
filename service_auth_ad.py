@@ -22,18 +22,13 @@ class AuthResource:
         auth = base64.b64decode(req.auth[6:])
         usr, pwd = auth.decode("utf-8").split(":", 1)
 
-        auth_users = []
+        auth_users = None
         x_auth_users = req.get_header('x-auth-users')
         if x_auth_users is not None:
             auth_users = x_auth_users.lower().split(',')
         log.debug("users: %s", auth_users)
 
-        if len(auth_users) > 0 and usr.lower() not in auth_users:
-            res.status = falcon.HTTP_UNAUTHORIZED
-            log.info(f"{usr} not in allowed user list")
-            return
-
-        auth_groups = []
+        auth_groups = None
         x_auth_groups = req.get_header('x-auth-groups')
         if x_auth_groups is not None:
             auth_groups = x_auth_groups.lower().split(',')
