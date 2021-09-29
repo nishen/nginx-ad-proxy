@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ldap3 = "==2.7"
+requests = "==2.23.0"
+urllib3 = "==1.25.8"
+gunicorn = "==20.0.4"
+falcon = "==2.0.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+launch = "gunicorn -b 127.0.0.1:9091 service_auth_ad:api"
