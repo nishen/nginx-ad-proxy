@@ -31,6 +31,7 @@ class AuthResource:
         if len(auth_users) > 0 and usr.lower() not in auth_users:
             res.status = falcon.HTTP_UNAUTHORIZED
             log.info(f"{usr} not in allowed user list")
+            return
 
         auth_groups = []
         x_auth_groups = req.get_header('x-auth-groups')
