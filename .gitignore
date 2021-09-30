@@ -7,3 +7,4 @@ node_modules
 *.xml
 config.py
 data
+log

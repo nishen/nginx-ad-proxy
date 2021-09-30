@@ -14,6 +14,7 @@ class AuthResource:
         self.ad_dao = active_directory_dao.ActiveDirectoryDAO()
 
     def on_get(self, req, res):
+        log.debug("headers: %s", req.headers)
         if req.auth is None:
             res.status = falcon.HTTP_UNAUTHORIZED
             log.info("request has no authorization header")
