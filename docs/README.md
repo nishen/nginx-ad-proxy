@@ -18,11 +18,11 @@ This software provides a service that can be used with the NGINX _[auth_request_
 * Uses TLS over port 389
 
 ## Requirements
-1. Python 3.6+
-2. gunicorn (Linux)
-3. waitress-serve (Lindows)
-4. pipenv
-5. Docker (optional)
+1. [Python 3.6+](https://www.python.org/)
+2. [Gunicorn](https://docs.gunicorn.org/en/stable/install.html) (Linux)
+3. [Waitress](https://pypi.org/project/waitress/) (Windows)
+4. [pipenv](https://pypi.org/project/pipenv/)
+5. [Docker](https://www.docker.com/) (optional)
 
 ## Getting started - configuring NGINX AD Proxy
 ### Recommended: create a user with which to run nginx-ad-proxy - e.g.:
