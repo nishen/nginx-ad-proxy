@@ -139,5 +139,3 @@ The above block will grant permission to a user that has EITHER of the following
 
 ## Hope it helps!
 If you have any questions or enhancement requests, feel free to drop a message or open an issue.
-
---Nish
