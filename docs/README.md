@@ -108,7 +108,7 @@ You can protect 1 or more resources with a block like this:
 
       # variable is used in the /auth-ad block to make authorization decisions.
       set $xAuthGroups   "AD-GRP-SHIELD";
-      set $xAuthUsers    "tony.stark,bucky.barnes";
+      set $xAuthUsers    "tony.stark,steve.rogers";
       set $realm "Protected web Application";
 
       proxy_http_version 1.1;
@@ -125,7 +125,7 @@ You can protect 1 or more resources with a block like this:
       # This helps if you don't want to create a login page and do redirects
       # for asking a user to login. This will generate the browser login box
       # on the client so they can login. You can create an empty htpasswd.dat
-      # file and use the 'satisfy any' directive to allow authntication against
+      # file and use the 'satisfy any' directive to allow authentication against
       # Active Directory only.
       auth_basic              $realm;
       auth_basic_user_file    /path/to/empty/htpasswd.dat;
