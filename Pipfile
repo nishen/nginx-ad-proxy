@@ -17,5 +17,5 @@ cachetools = "*"
 python_version = "3"
 
 [scripts]
-launch = "gunicorn -b 127.0.0.1:9091 service_auth_ad:api"
-launch-win = "waitress-serve --listen 127.0.0.1:9091 service_auth_ad:api"
+launch = "gunicorn -b 127.0.0.1:9091 nginx_ad_proxy:api"
+launch-win = "waitress-serve --listen 127.0.0.1:9091 nginx_ad_proxy:api"
