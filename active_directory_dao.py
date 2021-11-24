@@ -24,8 +24,8 @@ class ActiveDirectoryDAO:
         ad_groups = []
         try:
             ad_groups = self.fetch_ad_groups(username, password)
-        except LDAPBindError:
-            log.error("binding user: [%s] (failed)", username)
+        except LDAPBindError as bindErr:
+            log.error("binding user failed: [%s] (%s)", username, bindErr)
             return False
         except LDAPException as ldapErr:
             log.error("ldap error: [%s]", ldapErr)
@@ -34,14 +34,16 @@ class ActiveDirectoryDAO:
             log.error("general error: [%s]", err)
             return False
 
-        if auth_users is not None and auth_groups is not None:
+        if auth_users is not None and len(auth_users) > 0 and auth_groups is not None and len(auth_groups) > 0:
             return self.check_user(username, auth_users) or self.check_groups(ad_groups, auth_groups)
 
-        if auth_groups is None:
-            return self.check_user(username, auth_users)
-
-        if auth_users is None:
+        if auth_groups is not None and len(auth_groups) > 0:
             return self.check_groups(ad_groups, auth_groups)
+
+        if auth_users is not None and len(auth_users) > 0:
+            return self.check_user(username, auth_users)
+        
+        return False
 
     @cached(cache=TTLCache(maxsize=1024, ttl=1800))
     def fetch_ad_groups(self, username, password):
