@@ -43,7 +43,7 @@ class ActiveDirectoryDAO:
         if auth_users is not None and len(auth_users) > 0:
             return self.check_user(username, auth_users)
         
-        return False
+        return True
 
     @cached(cache=TTLCache(maxsize=1024, ttl=1800))
     def fetch_ad_groups(self, username, password):
