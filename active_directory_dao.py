@@ -42,7 +42,7 @@ class ActiveDirectoryDAO:
 
         if auth_users is not None and len(auth_users) > 0:
             return self.check_user(username, auth_users)
-        
+
         return True
 
     @cached(cache=TTLCache(maxsize=1024, ttl=1800))
@@ -71,13 +71,24 @@ class ActiveDirectoryDAO:
 
         # fetch user object and extract groups
         log.debug("searching for entry: sAMAccountName=%s", username)
-        c.search(search_base=AD_BASEDN,
-                 search_filter=f"(sAMAccountName={username})",
-                 search_scope=SUBTREE,
-                 attributes=["memberOf"])
 
-        # just a check... should not be 0 unless they are not in the active container
-        if len(c.response) == 0:
+        ad_basedns = AD_BASEDN.split("|")
+        if len(ad_basedns) == 0:
+            raise Exception("no base dns configured")
+
+        found_user = False
+        for ad_basedn in ad_basedns:
+            c.search(search_base=ad_basedn,
+                     search_filter=f"(sAMAccountName={username})",
+                     search_scope=SUBTREE,
+                     attributes=["memberOf"])
+
+            # just a check... should not be 0 unless they are not in the active container
+            if len(c.response) > 0:
+                found_user = True
+                break
+
+        if not found_user:
             log.warn("no entities in ldap search response")
             raise Exception("no entities in ldap search response")
 

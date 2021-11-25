@@ -14,6 +14,7 @@ This software provides a service that can be used with the NGINX _[auth_request_
 * Allows specifying Groups in the _[nginx.conf](http://nginx.org/en/docs/beginners_guide.html#conf_structure)_ file. Users must belong to listed Groups to be allowed access.
 * Allows specifying Users (via username) that are allowed access.
 * Allows mixing of Groups and User (via _OR_ - i.e. User must be in either the specified Groups or the specified Users).
+* Can configure multiple BASE DNs to search through.
 * Can be run as a Docker image or as a standard process.
 * Uses TLS over port 389
 
@@ -44,7 +45,7 @@ Edit the __.env__ file and add your settings:
 AD_DOMAIN=COMPANY
 AD_HOST=server.company.org
 AD_PORT=389
-AD_BASEDN=OU=Active,OU=Users,DC=company,DC=org
+AD_BASEDN=OU=Active,OU=Users,DC=company,DC=org|OU=Admins,OU=Users,DC=company,DC=org
 DEBUG=0
 ```
 _NOTE: Works with using TLS over port 389_
