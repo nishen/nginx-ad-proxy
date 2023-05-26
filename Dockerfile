@@ -4,6 +4,6 @@ WORKDIR /opt/service-auth-ad
 
 ADD * ./
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install pipenv && pipenv install
 
-CMD ["gunicorn", "-b", "0.0.0.0:80", "service_auth_ad:api"]
+CMD ["pipenv", "run", "launch"]
