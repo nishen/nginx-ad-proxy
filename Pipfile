@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 ldap3 = "==2.7"
 requests = "==2.32.4"
-urllib3 = "==2.5.0"
+urllib3 = "==2.6.3"
 certifi = "==2024.7.4"
 gunicorn = "==23.0.0"
 falcon = "==2.0.0"
